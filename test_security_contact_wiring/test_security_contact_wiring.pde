@@ -3,7 +3,8 @@
 #include <Keypad.h>
 /*CONSTANTES KEYPAD*/
 //Specified password
-const String KEY = "1234";
+String KEYS[] = {"1234" , "1111" , "2468", "0811" };
+int KEYSLENGTH = 4;
 
 //Time in milliseconds which the system is locked
 const int LOCK_TIME = 30000;
@@ -82,6 +83,18 @@ long currTime;
 //Number of current attempts
 byte attempts;
 
+/* PIR sensor tester */
+// choose the pin for the LED
+int ledPin = 14;
+// choose the input pin (for PIR sensor)
+int inputPin = 2; 
+// we start, assuming no motion detected
+int pirState = LOW;
+// variable for reading the pin status
+int val = 0;
+
+boolean newNumber = false;
+boolean alertSent = false;
 void setup()
 {
   Serial.begin(9600);
@@ -100,73 +113,92 @@ void setup()
   pinMode(CONTACT_PIN,INPUT);
   // inicia con color azul STANDBY
   setColor(255,255,0);
+  
+  // declare LED as output
+  pinMode(ledPin, OUTPUT);
+  // declare sensor as input
+  pinMode(inputPin, INPUT);
 }
 
 void loop()
 {
   //KEYPAD  
   char customKey;
-   if(!block) {
-      //Selected key parsed;
-      customKey = customKeypad.getKey();
-    }
-    else {
-      setColor(0,255,255);
-      Serial.println("Number of attempts exceeded");
-      while(true);
-
-    }
+    //Selected key parsed;
+    customKey = customKeypad.getKey();
   
     //Verification of input and appended value
     if (customKey) {  
       currentKey+=String(customKey);
       Serial.println(currentKey);
+      newNumber = true;
     }
   
     //If the current key contains '*' and door is open
     if(open && currentKey.endsWith("*")) {
-     setColor(255,255,0)
+     setColor(255,255,0);
       open = false;
       
-      Serial.println("Door closed");
+      Serial.println("D0");
       digitalWrite(10,LOW);
       currentKey = "";
      
     }
     //If the current key contains '#' reset attempt
-    if(currentKey.endsWith("#")&&currentKey.length()<=KEY.length()) {
+    
+    if(currentKey.endsWith("#")&&currentKey.length()<=KEYS[0].length()) {
       currentKey = "";
-      Serial.println("Attempt deleted");
+      Serial.println("N0");
     }
   
     //If current key matches the key length
-    if (currentKey.length()== KEY.length()) {
-      if(currentKey == KEY) {
-        setColor(255,0,255)
-        digitalWrite(10,HIGH);
-        open = true;
-        Serial.println("Door opened!!");
-        attempts = 0;
-        
+    if (currentKey.length()== KEYS[0].length()) {
+      int i = 0;
+      boolean bol = false;
+      boolean found = false;
+      while(i<KEYSLENGTH&&!found){
+        String KEY = KEYS[i];
+        if(currentKey == KEY) {
+          setColor(255,0,255);
+          digitalWrite(10,HIGH);
+          open = true;
+          if(newNumber){
+            Serial.println("D1");
+            newNumber = false;
+          }
+          attempts = 0;
+          bol = false;
+          found = true;
+        }
+        else {
+          bol = true;
+        }
+        i++;
       }
-      else {
+      found = false;
+      if(bol){
         attempts++;
+        Serial.println("N"+String(attempts));
         currentKey = "";
-        Serial.println("Number of attempts: "+String(attempts));
+        bol = false;
       }
-    }else if(currentKey.length()> KEY.length()){
-      setColor(255,0,255)
-      Serial.println("Door opened!!");
+    }else if(currentKey.length()> KEYS[0].length()){
+      setColor(255,0,255);
+      if(newNumber){
+        Serial.println("D1");
+        newNumber = false;
+      }
     }
     if(attempts>=maxAttempts) {
-      setColor(255,255,0)
+      setColor(0,255,255);
       currentKey = "";
       attempts = 0;
-      Serial.println("System locked");
+      Serial.println("S1");
+      
       
       delay(LOCK_TIME);
-      setColor(255,0,255)
-      Serial.println("System unlocked");
+      setColor(255,255,0);
+      Serial.println("S0");
       
     }
   
@@ -185,22 +217,51 @@ void loop()
       setColor(255,0,255);
       open = true;
       attempts = 0;
-      Serial.println("Se abrio la puerta, se reiniciaron los intentos.");
+      Serial.println("P1");
     }
   }
   else {
     if(digitalRead(CONTACT_PIN)) {
       //Tiempo de apertura mayor a 30 segundos
-      if((millis()-currTime)>=30000) {
+      if((millis()-currTime)>=5000) {
         setColor(0, 255, 255);
-        Serial.println("puerta abierta mas de 30 segundos");
+        if(!alertSent){
+          Serial.println("P2");
+          alertSent = true;
+        }
       }
     }else{
       //Blue la puerta esta cerrada y pasa a stand by
       setColor(255,255,0);
       open = false;
       buttonState = false;
-      Serial.println("Puerta cerrada!!");
+      Serial.println("P0");
+      alertSent = false;
+    }
+  }
+  delay(100);
+  
+  
+  //PIR sensor
+  // read input value
+  val = digitalRead(inputPin);
+  // check if the input is HIGH  
+  if (val == HIGH) {      
+    // turn LED ON    
+    digitalWrite(ledPin, HIGH);  
+    if (pirState == LOW) {
+      // we have just turned on
+      Serial.println("M1");
+      // We only want to print on the output change, not state
+      pirState = HIGH;
+    }
+  } else {
+    digitalWrite(ledPin, LOW); // turn LED OFF
+    if (pirState == HIGH){
+      // we have just turned of
+      Serial.println("M0");
+      // We only want to print on the output change, not state
+      pirState = LOW;
     }
   }
   delay(100);
