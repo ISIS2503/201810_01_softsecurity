@@ -1,0 +1,207 @@
+[
+    {
+        "id": "9de54992.d00e18",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "45bc7cbc.891634",
+        "type": "serial in",
+        "z": "9de54992.d00e18",
+        "name": "Wiring",
+        "serial": "54b26931.8f1a68",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "8417c50e.517628",
+                "7bd01789.bd4008"
+            ]
+        ]
+    },
+    {
+        "id": "8417c50e.517628",
+        "type": "debug",
+        "z": "9de54992.d00e18",
+        "name": "wiring",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 250,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7bd01789.bd4008",
+        "type": "function",
+        "z": "9de54992.d00e18",
+        "name": "Format Wiring",
+        "func": "context.data = context.data || {};\nvar res = {};\nvar aaa = {};\naaa.payload = msg.payload.split(\"\\n\")[0].trim();\nswitch (aaa.payload) \n{\n    case \"P2\":\n        context.data.alert = \"Puerta abierta mas de 30 segundos\";\n        context.data.sensor = \"Pulsador\";\n        break;\n    case \"S1\":\n        context.data.alert = \"Intento de apertura sospechoso\";\n        context.data.sensor = \"Keypad\";\n        break;\n    case \"M1\":\n        context.data.alert = \"Apertura no permitida\";\n        context.data.sensor = \"PIR\";\n        break;\n    default:\n    \tbreak;\n}\nif(context.data.alert != null){\n    res.payload = {};\n    res.topic = context.data.alert;\n    res.payload = {\"alert\":context.data.alert,\"sensor\":context.data.sensor};\n    context.data = null;\n    return res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "c9f809cc.3b3e68",
+                "868c53fb.d5d02"
+            ]
+        ]
+    },
+    {
+        "id": "c9f809cc.3b3e68",
+        "type": "debug",
+        "z": "9de54992.d00e18",
+        "name": "format",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 470,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "59a69f18.ae68a",
+        "type": "inject",
+        "z": "9de54992.d00e18",
+        "name": "Sensor time",
+        "topic": "time",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "a7280899.6d2eb8",
+                "73b78d35.9963b4"
+            ]
+        ]
+    },
+    {
+        "id": "73b78d35.9963b4",
+        "type": "function",
+        "z": "9de54992.d00e18",
+        "name": "Format Time",
+        "func": "var res = {};\n\n\nres.payload = new Date(msg.payload);\nres.topic = msg.topic;\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "2b1bf3ed.ef792c",
+                "868c53fb.d5d02"
+            ]
+        ]
+    },
+    {
+        "id": "a7280899.6d2eb8",
+        "type": "debug",
+        "z": "9de54992.d00e18",
+        "name": "before format",
+        "active": false,
+        "console": false,
+        "complete": "payload",
+        "x": 290,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2b1bf3ed.ef792c",
+        "type": "debug",
+        "z": "9de54992.d00e18",
+        "name": "after format",
+        "active": false,
+        "console": false,
+        "complete": "payload",
+        "x": 490,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "868c53fb.d5d02",
+        "type": "function",
+        "z": "9de54992.d00e18",
+        "name": "Merge 2 messages",
+        "func": "context.data = context.data || {};\n\nswitch (msg.topic) \n{\n    case \"Puerta abierta mas de 30 segundos\":\n        context.data.alert = msg.payload;\n        break;\n    case \"Intento de apertura sospechoso\":\n        context.data.alert = msg.payload;\n        break;\n    case \"Apertura no permitida\":\n        context.data.alert = msg.payload;\n        break;\n    case \"time\":\n        context.data.time = msg.payload;\n        break;\n    default:\n    \tbreak;\n}\n\nif(context.data.time != null && context.data.alert != null) \n{\n\t\tres = {};\n    res.payload = JSON.stringify(context.data);\n    res.topic = \"roomTemperature\";\n    context.data = null;\n\t\treturn res;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 180,
+        "wires": [
+            [
+                "efc254a2.c39958",
+                "e618c359.38062"
+            ]
+        ]
+    },
+    {
+        "id": "efc254a2.c39958",
+        "type": "debug",
+        "z": "9de54992.d00e18",
+        "name": "after merge",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "x": 690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e618c359.38062",
+        "type": "mqtt out",
+        "z": "9de54992.d00e18",
+        "name": "",
+        "topic": "alert/wiring",
+        "qos": "0",
+        "retain": "false",
+        "broker": "c10bd8.e1fda428",
+        "x": 690,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "54b26931.8f1a68",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "COM8",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": true
+    },
+    {
+        "id": "c10bd8.e1fda428",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.91",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    }
+]
