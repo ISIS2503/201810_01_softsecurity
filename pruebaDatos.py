@@ -6,13 +6,13 @@ client = mqtt.Client("C1")
 
 
 client.connect("172.24.42.91", port = 8083 ) 
-client.suscribe("alert/wiring/+)
+client.suscribe("alert/wiring/+")
 
 
-def on_message(client, data, message)
-	print( "message received:" + str(message.payload.decode("utf-8))
+def on_message(client, data, message):
+	print( "message received: " + str(message.payload.decode("utf-8")))
 	print( "message topic: " + message.topic)
-	print ( "message qos : " + str(message.qos))
+	print( "message qos : " + str(message.qos))
 	
 	
 client.on_message = on_message
