@@ -1,0 +1,14 @@
+P0 = Botón no presionado
+P1 = Botón presionado
+P2 = Botón presionado más de 30 segundos
+
+D1 = Puerta abierta
+D0 = Puerta cerrada
+S1 = Sistema bloqueado
+S0 = Sistema desbloqueado
+
+N0 = Intento borrado
+NX = Número de intentos
+
+M1 = Movimiento detectado
+M0 = Movimiento no detectado
