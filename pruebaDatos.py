@@ -6,7 +6,7 @@ user = mqttConnect.Client("C1")
 
 
 user.connect("172.24.42.91", port = 8083 ) 
-user.subscribe("alert/#")
+user.subscribe("conjunto1/residencia1/alerta")
 
 
 def on_message(user, data, message):
