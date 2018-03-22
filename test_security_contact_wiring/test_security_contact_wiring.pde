@@ -7,7 +7,7 @@ String KEYS[] = {"1234" , "1111" , "2468", "0811" };
 int KEYSLENGTH = 4;
 
 //Time in milliseconds which the system is locked
-const int LOCK_TIME = 30000;
+const int LOCK_TIME = 1000;
 
 //Keypad rows
 const byte ROWS = 4; 
@@ -95,9 +95,37 @@ int val = 0;
 
 boolean newNumber = false;
 boolean alertSent = false;
+
+/*ALARMA BATERIA*/
+//Minimum voltage required for an alert
+const double MIN_VOLTAGE = 1.2;
+
+//Battery measure pin
+const int BATTERY_PIN = 24;
+
+//Battery indicator
+const int BATTERY_LED = 15;
+
+//Current battery charge
+double batteryCharge;
+
+boolean pause = false;
+unsigned long time1 = millis();
+unsigned long time2 = millis();
+boolean initsound = true;
 void setup()
 {
   Serial.begin(9600);
+  
+  //BATERIA
+  
+  // Ouput pin definition for BATTERY_LED
+  pinMode(BATTERY_LED,OUTPUT);
+
+  //Input pin definition for battery measure
+  pinMode(BATTERY_PIN,INPUT);
+  
+  
   //KEYPAD
   currentKey = "";
   open = false;
@@ -122,6 +150,40 @@ void setup()
 
 void loop()
 {
+  //BATERIA
+  //Value conversion from digital to voltage
+  batteryCharge = (analogRead(BATTERY_PIN)*3.3)/1024;
+  //Serial.println(batteryCharge);
+  
+  //Measured value comparison with min voltage required
+  if(batteryCharge<=MIN_VOLTAGE) {
+    digitalWrite(BATTERY_LED,HIGH);
+    
+    time1 = millis();
+    if(!pause){
+      time2 = millis()+30000;
+      pause=true;
+    }
+    if(time2<time1 || initsound){
+      tone(16, 262);
+      Serial.println("sound");
+      Serial.println(time1);
+      Serial.println(time2);
+      delay(2000);
+      noTone(16);
+      pause=false;
+      time1=millis();
+      time2=millis();
+      initsound = false;}
+      Serial.println("B0");
+    }
+    
+  }
+  else {
+    digitalWrite(BATTERY_LED,LOW);
+    initsound = true;
+  }
+  
   //KEYPAD  
   char customKey;
     //Selected key parsed;
@@ -139,7 +201,7 @@ void loop()
      setColor(255,255,0);
       open = false;
       
-      Serial.println("D0");
+      //Serial.println("D0");
       digitalWrite(10,LOW);
       currentKey = "";
      
@@ -148,7 +210,7 @@ void loop()
     
     if(currentKey.endsWith("#")&&currentKey.length()<=KEYS[0].length()) {
       currentKey = "";
-      Serial.println("N0");
+      //Serial.println("N0");
     }
   
     //If current key matches the key length
@@ -163,7 +225,7 @@ void loop()
           digitalWrite(10,HIGH);
           open = true;
           if(newNumber){
-            Serial.println("D1");
+            //Serial.println("D1");
             newNumber = false;
           }
           attempts = 0;
@@ -178,7 +240,7 @@ void loop()
       found = false;
       if(bol){
         attempts++;
-        Serial.println("N"+String(attempts));
+        //Serial.println("N"+String(attempts));
         currentKey = "";
         bol = false;
       }
@@ -195,10 +257,11 @@ void loop()
       attempts = 0;
       Serial.println("S1");
       
-      
+      tone(16, 262);
       delay(LOCK_TIME);
+      noTone(16);
       setColor(255,255,0);
-      Serial.println("S0");
+      //Serial.println("S0");
       
     }
   
@@ -217,7 +280,7 @@ void loop()
       setColor(255,0,255);
       open = true;
       attempts = 0;
-      Serial.println("P1");
+      //Serial.println("P1");
     }
   }
   else {
@@ -225,6 +288,12 @@ void loop()
       //Tiempo de apertura mayor a 30 segundos
       if((millis()-currTime)>=5000) {
         setColor(0, 255, 255);
+        tone(16, 1047);
+        delay(500);
+        noTone(16);
+        tone(16, 523);
+        delay(500);
+        noTone(16);
         if(!alertSent){
           Serial.println("P2");
           alertSent = true;
@@ -235,7 +304,7 @@ void loop()
       setColor(255,255,0);
       open = false;
       buttonState = false;
-      Serial.println("P0");
+      //Serial.println("P0");
       alertSent = false;
     }
   }
@@ -259,7 +328,7 @@ void loop()
     digitalWrite(ledPin, LOW); // turn LED OFF
     if (pirState == HIGH){
       // we have just turned of
-      Serial.println("M0");
+      //Serial.println("M0");
       // We only want to print on the output change, not state
       pirState = LOW;
     }
