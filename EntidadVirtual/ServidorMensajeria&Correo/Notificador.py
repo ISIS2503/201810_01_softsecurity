@@ -17,22 +17,18 @@ def on_message(user, data, message):
     print('Para:', destinatarios)
     print('Asunto: ', message.topic)
     print('Mensaje: ', message.payload.decode('utf-8'))
-	email = """From: %s
-	To: %s
-	MIME-Version: 1.0
-	Content-type: text/html
-	Subject: %s
-	
-	
-	%s
-	""" %(sender, destinatarios, message.topic, message.payload.decode('utf-8'))
+	email = 'From: {}\n 
+			To: {}\n
+			MIME-Version: 1.0\n
+			Content-type: text/html\n
+			Subject: {}'.format(sender, destinatarios, message.topic, message.payload.decode('utf-8'))
 	try:
 		smtp = smtplib.SMTP('localhost')
-		smtp.sendmail(remitente, destinatarios, email)
-		print "Correo enviado"
+		smtp.sendmail(sender, destinatarios, email)
+		print('Correo enviado')
 	except:
-		print """Error: el mensaje no pudo ser enviado.
-		Comprobar sendmail instalado"""
+		print('Error: el mensaje no pudo ser enviado.
+		Comprobar sendmail instalado')
 
 
 user.on_message = on_message
