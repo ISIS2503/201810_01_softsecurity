@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from email.mime.text import MIMEText
 import paho.mqtt.client as mqtt_connect
 import smtplib
 import time
@@ -8,27 +9,29 @@ user = mqtt_connect.Client("C1")
 user.connect("172.24.42.91", port=8083)
 user.subscribe("conjunto1/inmueble1/alerta")
 
-destinatarios = ['Juan Camilo Useche Rodríguez <jc.useche10@uniandes.edu.co>', 'Zulma Lorena Castañeda <zl.castaneda10@uniandes.edu.co>', 'Andrés Felipe Pinzón <af.pinzon10@uniandes.edu.co>']
+adress = ['Ju<jc.useche10@uniandes.edu.co>', 'Zul<zl.castaneda10@uniandes.edu.co>', 'An<af.pinzon10@uniandes.edu.co>']
 sender = "Tatiana Vanessa Huertas Bolaños <tv.huertas10@uniandes.edu.co>"
 
 
 def on_message(user, data, message):
     print('De:', sender)
-    print('Para:', destinatarios)
+    print('Para:', adress)
     print('Asunto: ', message.topic)
     print('Mensaje: ', message.payload.decode('utf-8'))
-	email = 'From: {}\n 
-			To: {}\n
-			MIME-Version: 1.0\n
-			Content-type: text/html\n
-			Subject: {}'.format(sender, destinatarios, message.topic, message.payload.decode('utf-8'))
-	try:
-		smtp = smtplib.SMTP('localhost')
-		smtp.sendmail(sender, destinatarios, email)
-		print('Correo enviado')
-	except:
-		print('Error: el mensaje no pudo ser enviado.
-		Comprobar sendmail instalado')
+
+    mime_message = MIMEText(message.payload.decode('utf-8'), "plain")
+    mime_message["From"] = sender
+    mime_message["To"] = adress
+    mime_message["Subject"] = message.topic
+
+    try:
+        smtp = smtplib.SMTP('localhost')
+        smtp.login(sender, "Password")
+        smtp.sendmail(sender, adress, mime_message.as_string())
+        print('Correo enviado')
+    except:
+        print('Error: el mensaje no pudo ser enviado. Comprobar sendmail instalado')
+        smtp.quit()
 
 
 user.on_message = on_message
