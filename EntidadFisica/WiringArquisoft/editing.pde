@@ -14,6 +14,7 @@ const int ADD=0;
 const int UPDATE=1;
 const int DELETE = 2;
 const int DELETEALL=3;
+const int RECOVER=4;
 
 /*CONSTANTES KEYPAD*/
 //Key size
@@ -426,6 +427,10 @@ void processCommand(String command) {
     deleteAllPasswords();
     Serial.print("deleteall");
   }
+  else if(comNum.get(0) == RECOVER) {
+	recoverPassword(comNum.get(1));
+	Serial.print("recover");
+  }
 }
 
 //Method that adds a password in the specified index
@@ -468,5 +473,16 @@ void deleteAllPasswords() {
   EEPROM.write(0,0);
   EEPROM.write(1,0);
   EEPROM.write(2,0);
+}
+
+//Method that recovers a password
+void recoverPassword(int index) {
+  byte i = 1;
+  byte location = index/8;
+  byte position = index%8;
+  i<<=position;
+  byte j = EEPROM.read(location);
+  j |= i;
+  EEPROM.write(location,j);
 }
 
