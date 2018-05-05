@@ -12,7 +12,7 @@ contador = 0
 heartbeat = "I'm alive"
 salida = True
 
-while salida:
+"""while salida:
     while ahora+delta > datetime.now():
         print(index)
         index = index+1
@@ -29,6 +29,28 @@ while salida:
         salida=False
 
     ahora = datetime.now()
+    
+    
+    
+"""
+
+while True:
+
+    while ahora+delta > datetime.now():
+        print("Ahora:"+str(datetime.now()))
+        time.sleep(1)
+    print("Hub alive")
+    ahora = datetime.now()
+
+def sent_heartbeat():
+    while ahora + delta > datetime.now():
+        print("Ahora:" + str(datetime.now()))
+        time.sleep(1)
+    print("Hub alive")
+    ahora = datetime.now()
+
+
+
 
 
 
