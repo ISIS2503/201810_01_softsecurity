@@ -1,9 +1,15 @@
 import paho.mqtt.client as paho
-import datetime
+from datetime import timedelta
+from datetime import datetime
+import time
 
 
-espera =datetime.time
-contador=0
+delta = timedelta(seconds=10)
+ahora = datetime.now()
+index = 0
+contador = 0
+heartbeat = "I'm alive"
+salida = True
 
 
 def on_connect(client, userdata, flags, rc):
@@ -22,17 +28,23 @@ def on_message(client, userdata, msg):
     #print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
     print(str(msg.payload))
 
-    if espera
+    while salida:
+        while ahora + delta > datetime.now():
+            print(index)
+            index = index + 1
+            time.sleep(1)
 
-    if "alive" in msg.payload:
-        espera = datetime.time
-        print("Se hizo sustring")
-        contador =0
+            if "alive" in msg.payload:
+                contador = 0
+                ahora = datetime.now()
 
+        contador += 1
+        print(contador)
+        if contador >= 3:
+            print("chucu chucu chucu")
+            salida = False
 
-
-
-    if(contador>=3)
+        ahora = datetime.now()
 
 
 
