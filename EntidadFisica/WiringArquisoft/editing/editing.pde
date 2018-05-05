@@ -5,7 +5,7 @@
 /*
  * Hertbeat sender
  */
-const timeHeart = 60000; 
+const unsigned long timeHeart = 60000; 
 unsigned long startHeart = millis();    // inicializado en el tiempo actual
 unsigned long finishHeart = millis()+timeHeart;	// tiempo final de envio del heartbeat 
 
@@ -154,7 +154,7 @@ void setup()
   pinMode(B_LED_PIN, OUTPUT);
   pinMode(CONTACT_PIN,INPUT);
   // inicia con color azul STANDBY
-  setColor(255,255,0);
+  setColor(191,191,0);
 
   // declare LED as output
   pinMode(ledPin, OUTPUT);
@@ -169,7 +169,7 @@ void loop()
 		startHeart = millis();
 	if ( startHeart >= finishHeart){
 		Serial.println("I'm alive");	
-		finishHeart = millis + timeHeart;
+		finishHeart = millis() + timeHeart;
 	}	
 	
 	
@@ -220,7 +220,7 @@ void loop()
 
   //If the current key contains '*' and door is open
   if(open && currentKey.endsWith("*")) {
-    setColor(255,255,0);
+    setColor(191,191,0);
     open = false;
 
     //Serial.println("D0");
@@ -279,7 +279,7 @@ void loop()
     tone(16, 262);
     delay(LOCK_TIME);
     noTone(16);
-    setColor(255,255,0);
+    setColor(191,191,0);
     //Serial.println("S0");
   }
 
@@ -320,7 +320,7 @@ void loop()
     }
     else {
       //Blue la puerta esta cerrada y pasa a stand by
-      setColor(255,255,0);
+      setColor(191,191,0);
       open = false;
       buttonState = false;
       //Serial.println("P0");

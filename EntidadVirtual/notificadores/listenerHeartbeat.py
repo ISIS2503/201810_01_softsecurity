@@ -2,6 +2,7 @@ import paho.mqtt.client as paho
 from datetime import timedelta
 from datetime import datetime
 import time
+import threading
 
 
 delta = timedelta(seconds=10)
@@ -10,6 +11,8 @@ index = 0
 contador = 0
 heartbeat = "I'm alive"
 salida = True
+inicioHilo = False
+mensaje = ""
 
 
 def on_connect(client, userdata, flags, rc):
@@ -21,12 +24,10 @@ def on_subscribe(client, userdata, mid, granted_qos):
 def on_publish(client,userdata,mid):
     print("mid: "+str(mid))
 
-
-
-def on_message(client, userdata, msg):
-
-    #print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
-    print(str(msg.payload))
+def listen_heartbeat():
+    global salida, ahora, index, mensaje, contador
+    # print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+    print(mensaje)
 
     while salida:
         while ahora + delta > datetime.now():
@@ -34,9 +35,10 @@ def on_message(client, userdata, msg):
             index = index + 1
             time.sleep(1)
 
-            if "alive" in msg.payload:
+            if "alive" in mensaje:
                 contador = 0
                 ahora = datetime.now()
+                mensaje = ""
 
         contador += 1
         print(contador)
@@ -45,6 +47,18 @@ def on_message(client, userdata, msg):
             salida = False
 
         ahora = datetime.now()
+
+hilo = threading.Thread(target=listen_heartbeat)
+
+def on_message(client, userdata, msg):
+    global inicioHilo, mensaje
+    if not inicioHilo:
+        hilo.start()
+        inicioHilo = True
+    print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+    mensaje = str(msg.payload)
+
+
 
 
 
