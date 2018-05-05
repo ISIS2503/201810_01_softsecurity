@@ -7,7 +7,7 @@ import time
 user = mqtt_connect.Client("C1")
 
 user.connect("157.253.227.89", port=8083)
-user.subscribe("conjunto1/residencia1/alerta")
+user.subscribe("conjunto1/residencia1/hearthub")
 
 address = ['jc.useche10@uniandes.edu.co', 'zl.castaneda10@uniandes.edu.co', 'af.pinzon10@uniandes.edu.co']
 sender = 'tv.huertas10@uniandes.edu.co'
@@ -15,7 +15,6 @@ sender = 'tv.huertas10@uniandes.edu.co'
 
 def on_message(user, data, message):
     send_msg(message.payload.decode('utf-8'), message.topic)
-    print('Calidad del mensaje: ', str(message.qos))
 
 
 def send_msg(mensaje, asunto):
@@ -33,7 +32,7 @@ def send_msg(mensaje, asunto):
         smtp = smtplib.SMTP('smtp.office365.com')
         smtp.starttls()
         smtp.login(sender, 'vanessa98')
-        # smtp.send_message(mime_message)
+        smtp.send_message(mime_message)
         print('Correo enviado')
         smtp.quit()
     except:
