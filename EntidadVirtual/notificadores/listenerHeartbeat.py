@@ -4,6 +4,9 @@ from datetime import datetime
 import time
 import threading
 
+client = paho.Client()
+
+
 
 delta = timedelta(seconds=10)
 ahora = datetime.now()
@@ -25,18 +28,16 @@ def on_subscribe(client, userdata, mid, granted_qos):
 def on_publish(client,userdata,mid):
     print("mid: "+str(mid))
 
+
 def sent_heartbeat():
-    ahoraheart =datetime
     while True:
-        while ahoraheart + delta > datetime.now():
-            time.sleep(1)
+        time.sleep(10)
         print("Hub alive")
         client.publish(topico_yale,"Hub alive")
-        ahora = datetime.now()
 
 
 def listen_heartbeat():
-    global salida, ahora, index, mensaje, contador
+    global salida, ahora, index, mensaje, contador, client
     # print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
     print(mensaje)
 
@@ -55,14 +56,14 @@ def listen_heartbeat():
         print(contador)
         if contador >= 3:
             print("chucu chucu chucu")
-            client.publish(topico_yale, "chucu chucu")
+            client.publish("conjunto1/residencia1/heartbeathub", "chucu chucu")
             salida = False
 
         ahora = datetime.now()
 
 
-hilo = threading.Thread(target=listen_heartbeat())
-hiloheart = threading.Thread(target=sent_heartbeat())
+hilo = threading.Thread(target=listen_heartbeat)
+hiloheart = threading.Thread(target=sent_heartbeat)
 hiloheart.start()
 
 def on_message(client, userdata, msg):
@@ -73,20 +74,13 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
     mensaje = str(msg.payload)
 
-
-
-
-
-
-
-
-client = paho.Client()
 client.on_subscribe = on_subscribe
 client.on_message = on_message
 client.on_connect = on_connect
 client.connect("broker.mqttdashboard.com", 1883)
 client.subscribe("conjunto1/residencia1/alerta")
 client.loop_forever()
+
 
 
 

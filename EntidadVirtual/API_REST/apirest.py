@@ -226,14 +226,15 @@ def get_all_alarmas_in_conjunto(conjunto_nombre):
                  'conjunto': a['conjunto']})
     return jsonify({'result': output})
 
-#la funcion necesita como entrada el mes
+
+# la funcion necesita como entrada el mes
 @app.route('/alarma/conjunto/<conjunto_nombre>/<pmes>', methods=['GET'])
-def get_all_alarmas_in_conjunto_by_Month(conjunto_nombre,pmes):
+def get_all_alarmas_in_conjunto_by_month(conjunto_nombre, pmes):
     alarma = mongo.db.alarmas
     output = []
     for a in alarma.find():
         año, mes, dia = a['fecha'].split("-")
-        if conjunto_nombre == a['conjunto'] and mes == pmes :
+        if conjunto_nombre == a['conjunto'] and mes == pmes:
             output.append(
                 {'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
                  'conjunto': a['conjunto']})
