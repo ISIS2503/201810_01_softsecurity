@@ -11,6 +11,7 @@ user.subscribe("conjunto1/residencia1/alerta")
 
 address = ['jc.useche10@uniandes.edu.co', 'zl.castaneda10@uniandes.edu.co', 'af.pinzon10@uniandes.edu.co']
 sender = 'tv.huertas10@uniandes.edu.co'
+smtp.login(sender, 'vanessa98')
 
 
 def on_message(user, data, message):
@@ -32,8 +33,7 @@ def send_msg(mensaje, asunto):
     try:
         smtp = smtplib.SMTP('smtp.office365.com')
         smtp.starttls()
-        smtp.login(sender, 'vanessa98')
-        # smtp.send_message(mime_message)
+        smtp.send_message(mime_message)
         print('Correo enviado')
         smtp.quit()
     except:
