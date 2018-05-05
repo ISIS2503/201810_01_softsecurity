@@ -1,7 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a79bda8b-bd80-4f91-8a92-d4013d67ab64" name="Default" comment="" />
+    <list default="true" id="a79bda8b-bd80-4f91-8a92-d4013d67ab64" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/.pytest_cache/v/cache/lastfailed" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/.pytest_cache/v/cache/nodeids" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/AUTHORS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/CHANGES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/CONTRIBUTING.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/MANIFEST.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/README.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/eve-sidebar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/eve_leaf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/eve_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/forkme_right_green_007200.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/logo.ai" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/artwork/logo.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/dev-requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_static/eve-sidebar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_static/eve_leaf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_static/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_static/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_static/forkme_right_green_007200.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_templates/artwork.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_templates/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_templates/sidebarintro.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask/relations.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask/static/flasky.css_t" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask/theme.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask_small/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask_small/static/flasky.css_t" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask_small/theme.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/_themes/flask_theme_support.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/authentication.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/authors.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/changelog.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/conf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/config.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/contributing.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/extensions.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/features.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/foreword.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/funding.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/index.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/install.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/license.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/quickstart.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/rest_api_for_humans.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/snippets/hooks_blueprints.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/snippets/index.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/snippets/list_of_items.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/snippets/template.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/support.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/testing.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/tutorials/account_management.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/tutorials/custom_idfields.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/tutorials/index.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/updates.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/docs/validation.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/default_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/endpoints.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/exceptions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/flaskapp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/media.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/flask_pymongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/geo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/media.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/mongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/parser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/io/mongo/validation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/logging.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/delete.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/get.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/patch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/post.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/methods/put.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/render.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/auth.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/endpoints.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/io/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/io/flask_pymongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/io/media.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/io/mongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/io/multi_mongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/logging.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/delete.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/get.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/patch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/post.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/put.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/methods/ratelimit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/renders.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test_prefix.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test_prefix_version.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test_settings_env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/test_version.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/tests/versioning.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/validation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/eve/versioning.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/notifications.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/notifications_settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/bcrypt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/hmac.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/roles.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/settings_security.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/sha1-hmac.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/security/token.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/pytest.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/setup.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EntidadVirtual/eve-master/tox.ini" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +152,8 @@
       <file leaf-file-name="apirest.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EntidadVirtual/API_REST/apirest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3162">
-              <caret line="189" column="35" selection-start-line="189" selection-start-column="35" selection-end-line="189" selection-end-column="35" />
+            <state relative-caret-position="51">
+              <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -32,9 +170,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="10" />
-    <option name="y" value="20" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1346" />
     <option name="height" value="688" />
   </component>
@@ -61,12 +199,6 @@
               <item name="EntidadVirtual" type="462c0819:PsiDirectoryNode" />
               <item name="API_REST" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="201810_01_softsecurity" type="b2602c69:ProjectViewProjectNode" />
-              <item name="201810_01_softsecurity" type="462c0819:PsiDirectoryNode" />
-              <item name="EntidadVirtual" type="462c0819:PsiDirectoryNode" />
-              <item name="API_REST_USUARIO" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -90,7 +222,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.notifications">
     <configuration name="apirest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="201810_01_softsecurity" />
       <option name="INTERPRETER_OPTIONS" value="python-3.6.5" />
@@ -109,8 +241,31 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="notifications" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="201810_01_softsecurity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/EntidadVirtual/eve-master/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EntidadVirtual/eve-master/examples/notifications.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.apirest" />
+      <item itemvalue="Python.notifications" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.notifications" />
         <item itemvalue="Python.apirest" />
       </list>
     </recent_temporary>
@@ -162,10 +317,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EntidadVirtual/eve-master/examples/notifications_settings.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EntidadVirtual/eve-master/examples/notifications.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EntidadVirtual/eve-master/eve/auth.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5039" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EntidadVirtual/API_REST/apirest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3162">
-          <caret line="189" column="35" selection-start-line="189" selection-start-column="35" selection-end-line="189" selection-end-column="35" />
+        <state relative-caret-position="51">
+          <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
         </state>
       </provider>
     </entry>
