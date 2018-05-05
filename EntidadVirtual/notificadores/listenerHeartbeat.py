@@ -44,6 +44,7 @@ def listen_heartbeat():
         print(contador)
         if contador >= 3:
             print("chucu chucu chucu")
+            client.publish("conjunto1/residencia1/heartbeathub", "chucu chucu")
             salida = False
 
         ahora = datetime.now()
