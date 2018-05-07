@@ -1,6 +1,5 @@
-// /requirements.txt
-
 flask
+flask-pymongo
 python-dotenv
 requests
 authlib

@@ -190,8 +190,6 @@ void loop()
     if(time2<time1 || initsound) {
       tone(16, 262);
       Serial.println("sound");
-      Serial.println(time1);
-      Serial.println(time2);
       delay(2000);
       noTone(16);
       pause=false;
@@ -240,7 +238,6 @@ void loop()
     boolean bol = false;
     boolean found = false;
     if(compareKey(currentKey)) {
-      Serial.println("reached");
       setColor(255,0,255);
       digitalWrite(10,HIGH);
       open = true;

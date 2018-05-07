@@ -31,6 +31,7 @@ def on_publish(client,userdata,mid):
 
 def sent_heartbeat():
     while True:
+        #cambiar hearbeat hub
         time.sleep(10)
         print("Hub alive")
         client.publish(topico_yale,"Hub alive")
@@ -43,7 +44,7 @@ def listen_heartbeat():
 
     while salida:
         while ahora + delta > datetime.now():
-            print(index)
+            #print(index)
             index = index + 1
             time.sleep(1)
 
@@ -56,8 +57,9 @@ def listen_heartbeat():
         print(contador)
         if contador >= 3:
             print("chucu chucu chucu")
-            client.publish("conjunto1/residencia1/heartbeathub", "chucu chucu")
-            salida = False
+            client.publish("conjunto1/residencia1/heartbeathub", "cerradura fuera de linea")
+            #salida = False
+
 
         ahora = datetime.now()
 

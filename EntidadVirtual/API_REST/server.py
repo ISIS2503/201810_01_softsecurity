@@ -2,26 +2,21 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+from flask import render_template
+from flask import session
+from flask import url_for
 from flask_pymongo import PyMongo
-
 from functools import wraps
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
-
 from dotenv import load_dotenv, find_dotenv
-from flask import Flask
-from flask import jsonify
-from flask import redirect
-from flask import render_template
-from flask import session
-from flask import url_for
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
 from functools import wraps
 
-app = Flask(__name__, static_url_path='/public', static_folder='./public',template_folder='templates')
+app = Flask(__name__, static_url_path='/public', static_folder='./public', template_folder='templates')
 app.secret_key = 'estaesunaclavesecreta'
 
 app.config['MONGO_DBNAME'] = 'restdb'
