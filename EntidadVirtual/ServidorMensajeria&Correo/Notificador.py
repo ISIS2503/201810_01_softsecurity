@@ -9,7 +9,7 @@ user = mqtt_connect.Client("C1")
 user.connect("157.253.227.89", port=8083)
 user.subscribe("conjunto1/residencia1/alerta")
 
-address = ['jc.useche10@uniandes.edu.co', 'zl.castaneda10@uniandes.edu.co', 'af.pinzon10@uniandes.edu.co']
+address = 'arquisoftprueba@gmail.com'
 sender = 'tv.huertas10@uniandes.edu.co'
 smtp.login(sender, 'vanessa98')
 
@@ -27,7 +27,7 @@ def send_msg(mensaje, asunto):
 
     mime_message = MIMEText(mensaje, "plain")
     mime_message["From"] = sender
-    mime_message["To"] = " ,".join(address)
+    mime_message["To"] = address
     mime_message["Subject"] = asunto
 
     try:
