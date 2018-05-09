@@ -1,5 +1,7 @@
 # mongo.py
+import http.client
 from flask import Flask
+from flask import Flask,redirect
 from flask import jsonify
 from flask import request
 from flask import render_template
@@ -15,6 +17,7 @@ from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
 from functools import wraps
+
 
 app = Flask(__name__, static_url_path='/public', static_folder='./public', template_folder='templates')
 app.secret_key = 'estaesunaclavesecreta'
@@ -95,29 +98,36 @@ def dashboard():
 
 #CONJUNTO
 @app.route('/conjunto', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_conjuntos():
-    conjunto = mongo.db.conjuntos
-    output = []
-    for c in conjunto.find():
-        output.append({'nombre': c['nombre'], 'direccion': c['direccion'], 'estado': c['estado']})
-    return jsonify({'result': output})
-
+    if 'admin' or 'Yale' in str(session['jwt_payload']):
+        conjunto = mongo.db.conjuntos
+        output = []
+        for c in conjunto.find():
+            output.append({'nombre': c['nombre'], 'direccion': c['direccion'], 'estado': c['estado']})
+        return jsonify({'result': output})
+    else:
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/conjunto/<name>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_one_conjunto(name):
-    conjunto = mongo.db.conjuntos
-    c = conjunto.find_one({'nombre': name})
-    if c:
-        output = {'nombre': c['nombre'], 'direccion': c['direccion'], 'estado': c['estado']}
+    if 'admin' or 'Yale' in str(session['jwt_payload']):
+        conjunto = mongo.db.conjuntos
+        c = conjunto.find_one({'nombre': name})
+        if c:
+            output = {'nombre': c['nombre'], 'direccion': c['direccion'], 'estado': c['estado']}
+        else:
+         output = "No such name"
+        return jsonify({'result': output})
     else:
-        output = "No such name"
-    return jsonify({'result': output})
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 
 @app.route('/conjunto', methods=['POST'])
-@requires_auth
+#@requires_auth
 def add_conjunto():
     conjunto = mongo.db.conjuntos
     data = request.get_json()
@@ -126,15 +136,19 @@ def add_conjunto():
 
 
 @app.route('/conjunto/<name>', methods=['PUT'])
-@requires_auth
+#@requires_auth
 def put_conjunto(name):
-    data = request.get_json()
-    mongo.db.conjuntos.update_one({'nombre': name}, {'$set': data})
-    return get_one_conjunto(name)
-
+    if 'admin' in str(session['jwt_payload']):
+        data = request.get_json()
+        mongo.db.conjuntos.update_one({'nombre': name}, {'$set': data})
+        return get_one_conjunto(name)
+    else:
+        msg1 = "no eres admin"
+        print("sirve")
+        return msg1
 
 @app.route('/conjunto/<name>', methods=['DELETE'])
-@requires_auth
+#@requires_auth
 def delete_conjunto(name):
     mongo.db.conjuntos.update_one({'nombre': name}, {'$set': {'estado': 'Inactivo'}})
     return get_one_conjunto(name)
@@ -143,24 +157,27 @@ def delete_conjunto(name):
 # INMUEBLE
 
 @app.route('/conjunto/<name>/inmueble', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_inmuebles_in_conjunto(name):
-    conjunto = mongo.db.conjuntos
-    c = conjunto.find_one({'nombre': name})
-    output = []
-    if c:
-        inmueble = mongo.db.inmuebles
-        for i in inmueble.find():
-            if i['conjunto'] == c['nombre']:
-                output.append(
-                    {'numero': i['numero'], 'conjunto': i['conjunto'], "id_hub": i['id_hub'], "estado": i['estado']})
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        conjunto = mongo.db.conjuntos
+        c = conjunto.find_one({'nombre': name})
+        output = []
+        if c:
+            inmueble = mongo.db.inmuebles
+            for i in inmueble.find():
+                if i['conjunto'] == c['nombre']:
+                    output.append(
+                        {'numero': i['numero'], 'conjunto': i['conjunto'], "id_hub": i['id_hub'], "estado": i['estado']})
+        else:
+            output = "No such name"
+        return jsonify({'result': output})
     else:
-        output = "No such name"
-    return jsonify({'result': output})
-
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble', methods=['POST'])
-@requires_auth
+#@requires_auth
 def add_inmueble(conjunto_nombre):
     conjunto = mongo.db.conjuntos
     inmueble = mongo.db.inmuebles
@@ -179,24 +196,27 @@ def add_inmueble(conjunto_nombre):
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_one_inmueble(conjunto_nombre, inmueble_numero):
-    conjunto = mongo.db.conjuntos
-    inmueble = mongo.db.inmuebles
-    c = conjunto.find_one({'nombre': conjunto_nombre})
-    if c:
-        i = inmueble.find_one({'numero': inmueble_numero, 'conjunto': conjunto_nombre})
-        if i:
-            output = {'numero': i['numero'], 'conjunto': i['conjunto'], 'id_hub': i['id_hub'], "estado": i['estado']}
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        conjunto = mongo.db.conjuntos
+        inmueble = mongo.db.inmuebles
+        c = conjunto.find_one({'nombre': conjunto_nombre})
+        if c:
+            i = inmueble.find_one({'numero': inmueble_numero, 'conjunto': conjunto_nombre})
+            if i:
+                output = {'numero': i['numero'], 'conjunto': i['conjunto'], 'id_hub': i['id_hub'], "estado": i['estado']}
+            else:
+                output = "No such inmueble"
         else:
-            output = "No such inmueble"
+            output = "No such conjunto"
+        return jsonify({'result': output})
     else:
-        output = "No such conjunto"
-    return jsonify({'result': output})
-
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>', methods=['PUT'])
-@requires_auth
+#@requires_auth
 def put_inmueble(conjunto_nombre, inmueble_numero):
     conjunto = mongo.db.conjuntos
     data = request.get_json()
@@ -207,7 +227,7 @@ def put_inmueble(conjunto_nombre, inmueble_numero):
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>', methods=['DELETE'])
-@requires_auth
+#@requires_auth
 def delete_inmueble(conjunto_nombre, inmueble_numero):
     conjunto = mongo.db.conjuntos
     data = request.get_json()
@@ -219,7 +239,7 @@ def delete_inmueble(conjunto_nombre, inmueble_numero):
 
 #Cerradura
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>/cerradura/<numero_cerradura>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_one_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
     conjunto = mongo.db.conjuntos
     inmueble = mongo.db.inmuebles
@@ -241,27 +261,31 @@ def get_one_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>/cerradura', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_cerraduras_in_inmueble(conjunto_nombre, inmueble_numero):
-    conjunto = mongo.db.conjuntos
-    inmueble = mongo.db.inmuebles
-    c = conjunto.find_one({'nombre': conjunto_nombre})
-    i = inmueble.find_one({'numero': inmueble_numero})
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        conjunto = mongo.db.conjuntos
+        inmueble = mongo.db.inmuebles
+        c = conjunto.find_one({'nombre': conjunto_nombre})
+        i = inmueble.find_one({'numero': inmueble_numero})
 
-    output = []
-    if c and i:
-        cerradura = mongo.db.cerraduras
-        for l in cerradura.find():
-            if i['conjunto'] == c['nombre'] and l['num_inmueble'] == i['numero']:
-                output.append({'id_cerradura': l['id_cerradura'], 'tipo': l['tipo'], 'num_inmueble': i['numero'],
-                               "estado": l['estado']})
+        output = []
+        if c and i:
+            cerradura = mongo.db.cerraduras
+            for l in cerradura.find():
+                if i['conjunto'] == c['nombre'] and l['num_inmueble'] == i['numero']:
+                    output.append({'id_cerradura': l['id_cerradura'], 'tipo': l['tipo'], 'num_inmueble': i['numero'],
+                                   "estado": l['estado']})
+        else:
+            output = "No such name"
+        return jsonify({'result': output})
     else:
-        output = "No such name"
-    return jsonify({'result': output})
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>/cerradura', methods=['POST'])
-@requires_auth
+#@requires_auth
 def add_cerradura(conjunto_nombre, inmueble_numero):
     conjunto = mongo.db.conjuntos
     inmueble = mongo.db.inmuebles
@@ -275,7 +299,7 @@ def add_cerradura(conjunto_nombre, inmueble_numero):
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>/cerradura/<numero_cerradura>', methods=['PUT'])
-@requires_auth
+#@requires_auth
 def put_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
     conjunto = mongo.db.conjuntos
     inmueble = mongo.db.inmuebles
@@ -288,7 +312,7 @@ def put_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
 
 
 @app.route('/conjunto/<conjunto_nombre>/inmueble/<inmueble_numero>/cerradura/<numero_cerradura>', methods=['DELETE'])
-@requires_auth
+#@requires_auth
 def delete_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
     conjunto = mongo.db.conjuntos
     inmueble = mongo.db.inmuebles
@@ -302,46 +326,56 @@ def delete_cerradura(conjunto_nombre, inmueble_numero, numero_cerradura):
 
 ##ALARMA
 @app.route('/alarma', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_alarmas():
-    alarma = mongo.db.alarmas
-    output = []
-    for a in alarma.find():
-        output.append({'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
-                       'conjunto': a['conjunto']})
-    return jsonify({'result': output})
-
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        alarma = mongo.db.alarmas
+        output = []
+        for a in alarma.find():
+            output.append({'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
+                           'conjunto': a['conjunto']})
+        return jsonify({'result': output})
+    else:
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/alarma/conjunto/<conjunto_nombre>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_alarmas_in_conjunto(conjunto_nombre):
-    alarma = mongo.db.alarmas
-    output = []
-    for a in alarma.find():
-        if conjunto_nombre == a['conjunto']:
-            output.append(
-                {'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
-                 'conjunto': a['conjunto']})
-    return jsonify({'result': output})
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        alarma = mongo.db.alarmas
+        output = []
+        for a in alarma.find():
+            if conjunto_nombre == a['conjunto']:
+                output.append(
+                    {'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
+                     'conjunto': a['conjunto']})
+        return jsonify({'result': output})
+    else:
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 
 # la funcion necesita como entrada el mes
 @app.route('/alarma/conjunto/<conjunto_nombre>/<pmes>', methods=['GET'])
 @requires_auth
 def get_all_alarmas_in_conjunto_by_month(conjunto_nombre, pmes):
-    alarma = mongo.db.alarmas
-    output = []
-    for a in alarma.find():
-        año, mes, dia = a['fecha'].split("-")
-        if conjunto_nombre == a['conjunto'] and mes == pmes:
-            output.append(
-                {'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
-                 'conjunto': a['conjunto']})
-    return jsonify({'result': output})
-
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        alarma = mongo.db.alarmas
+        output = []
+        for a in alarma.find():
+            año, mes, dia = a['fecha'].split("-")
+            if conjunto_nombre == a['conjunto'] and mes == pmes:
+                output.append(
+                    {'fecha': a['fecha'], 'tipo': a['tipo'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
+                     'conjunto': a['conjunto']})
+        return jsonify({'result': output})
+    else:
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/alarma/inmueble/<num_inmueble>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_alarmas_in_inmueble(num_inmueble):
     alarma = mongo.db.alarmas
     output = []
@@ -353,7 +387,7 @@ def get_all_alarmas_in_inmueble(num_inmueble):
     return jsonify({'result': output})
 
 @app.route('/alarma/inmueble/<num_inmueble>/<pmes>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_alarmas_in_inmueble_by_Month(num_inmueble, pmes):
     alarma = mongo.db.alarmas
     output = []
@@ -366,7 +400,7 @@ def get_all_alarmas_in_inmueble_by_Month(num_inmueble, pmes):
     return jsonify({'result': output})
 
 @app.route('/alarma', methods=['POST'])
-@requires_auth
+#@requires_auth
 def add_alarma():
     alarma = mongo.db.alarmas
     data = request.get_json()
@@ -376,32 +410,39 @@ def add_alarma():
 
 ##USUARIO
 @app.route('/alarma/propietario/<id_propietario>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_all_alarmas_of_propietario(id_propietario):
-    alarma = mongo.db.alarmas
-    output = []
-    for a in alarma.find():
-        if id_propietario == a['propietario']:
-            output.append(
-                {'nombre': a['nombre'], 'apellido': a['apellido'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
-                 'conjunto': a['conjunto']})
-    return jsonify({'result': output})
-
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        alarma = mongo.db.alarmas
+        output = []
+        for a in alarma.find():
+            if id_propietario == a['propietario']:
+                output.append(
+                    {'nombre': a['nombre'], 'apellido': a['apellido'], 'cerradura': a['cerradura'], 'inmueble': a['inmueble'],
+                     'conjunto': a['conjunto']})
+        return jsonify({'result': output})
+    else:
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 @app.route('/propietario/<id_propietario>', methods=['GET'])
-@requires_auth
+#@requires_auth
 def get_one_propietario(id_propietario):
-    propietario = mongo.db.propietarios
-    p = propietario.find_one({'id_propietario': id_propietario})
-    if p:
-        output = {'id_propietario': p['id_propietario'], 'nombre': p['nombre'], 'apellido': p['apellido']}
+    if 'admin' or 'Yale' or 'Segurirdad privada' in str(session['jwt_payload']):
+        propietario = mongo.db.propietarios
+        p = propietario.find_one({'id_propietario': id_propietario})
+        if p:
+            output = {'id_propietario': p['id_propietario'], 'nombre': p['nombre'], 'apellido': p['apellido']}
+        else:
+            output = "No such id"
+        return jsonify({'result': output})
     else:
-        output = "No such id"
-    return jsonify({'result': output})
+        msg1 = "no tiene permisos para acceder a esta informacion"
+        return msg1
 
 
 @app.route('/propietario/<id_propietario>', methods=['PUT'])
-@requires_auth
+#@requires_auth
 def put_propietario(id_propietario):
     data = request.get_json()
     mongo.db.propietarios.update_one({'id_propietario': id_propietario}, {'$set': data})
@@ -409,7 +450,7 @@ def put_propietario(id_propietario):
 
 
 @app.route('/propietario/<id_propietario>/hub', methods=['POST'])
-@requires_auth
+#@requires_auth
 def add_hub(id_propietario):
     propietario = mongo.db.propietarios
     hub = mongo.db.hubs
