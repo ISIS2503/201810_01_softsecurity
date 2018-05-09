@@ -79,7 +79,7 @@ def on_message(client, userdata, msg):
 client.on_subscribe = on_subscribe
 client.on_message = on_message
 client.on_connect = on_connect
-client.connect("broker.mqttdashboard.com", 1883)
+client.connect("broker.mqtt-dashboard.com", 1883)
 client.subscribe("conjunto1/residencia1/alerta")
 client.loop_forever()
 

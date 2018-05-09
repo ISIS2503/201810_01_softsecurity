@@ -3,30 +3,20 @@ import paho.mqtt.client as paho
 import threading
 import time
 
-from click._compat import _force_correct_text_reader
-
+posicion = 0
+hora_inicio = 0
+hora_fin = 0
 
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
 
-
-"""def on_subscribe(client, userdata, mid, granted_qos):
+def on_subscribe(client, userdata, mid, granted_qos):
     print("Subscribed: " + str(mid) + " " + str(granted_qos))
-
-
-def on_message(client, userdata, msg):
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-
-"""
 client = paho.Client()
+client.on_subscribe = on_subscribe
 client.on_publish = on_publish
-"""client.on_subscribe = on_subscribe
-client.on_message = on_message"""
-client.connect("broker.mqtt-dashboard.com", 1883)
-"""client.subscribe("conjunto1/residencia1/alerta")
-#client.loop_forever()"""
 topic = "conjunto1/residencia1/cerradura"
-
+client.connect("broker.mqtt-dashboard.com", 1883)
 
 class Candado(object):
     def __init__(self, hora_inicio, hora_fin, index, estado):
@@ -62,15 +52,14 @@ class Candado(object):
 
 
 candados = []
-candado1 = Candado(10, 15, 1, True)
-candado2 = Candado(13, 18, 2, True)
-candados.append(candado1)
-candados.append(candado2)
 
 
-def agregar_candado(hora_inicio, hora_fin, index, estado):
-    cand = Candado(hora_inicio, hora_fin, index, estado)
+def agregar_candado(hora_inicio, hora_fin, index):
+    cand = Candado(hora_inicio, hora_fin, index, True)
     candados.insert(index, cand)
+    print("candado agregado")
+c = agregar_candado(11,15,3)
+c2 = agregar_candado(13,17,2)
 
 
 def borrar_candado(index):
@@ -83,12 +72,29 @@ def borrar_todos():
 
 
 def actualizador():
+    print("aacr")
     while True:
         time.sleep(60)
         for c in candados:
             time.sleep(10)
             c.actualizar_estado()
 
+def on_message(client, userdata, msg):
+    global hora_inicio,hora_fin,posicion
+    x=str(msg.payload)
+    x=x[2:-1]
+    print(x)
+    hora_inicio, hora_fin, posicion = x.split(";")
+    agregar_candado(int(hora_inicio),int(hora_fin),int(posicion))
+client.on_message = on_message
 a = threading.Thread(target=actualizador())
 a.start()
+
+client.subscribe("horariocandado")
+client.loop_forever()
+
+
+
+
+print("end")
 
