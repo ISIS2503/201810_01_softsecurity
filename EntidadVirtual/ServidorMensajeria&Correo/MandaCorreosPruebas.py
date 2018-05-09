@@ -6,14 +6,14 @@ user = mqtt_connect.Client("C2")
 
 user.connect('localhost', port=8083)
 error = 0
-alarmas = 1
+alarmas = 200
 tiempoinicial = time.time()
 
 for i in range(0, alarmas):
     user.publish("conjunto1/residencia1/alerta", payload='Alerta, Intruso!!!')
 
 tiempofinal = time.time() - tiempoinicial
-print('Tiempo de envío en segundos:', int(tiempofinal))
+print('Tiempo de envío en segundos:', tiempofinal)
 print('Porcentaje de error: ' + str(error) + '%')
 
 
