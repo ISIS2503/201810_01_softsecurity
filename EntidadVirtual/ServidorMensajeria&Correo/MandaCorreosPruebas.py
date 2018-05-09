@@ -6,7 +6,7 @@ user = mqtt_connect.Client("C2")
 
 user.connect('localhost', port=8083)
 error = 0
-alarmas = 300000
+alarmas = 1
 tiempoinicial = time.time()
 
 for i in range(0, alarmas):
