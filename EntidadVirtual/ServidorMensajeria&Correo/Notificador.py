@@ -6,17 +6,20 @@ import time
 
 user = mqtt_connect.Client("C1")
 
-user.connect("157.253.227.89", port=8083)
+user.connect('localhost', port=8083)
 user.subscribe("conjunto1/residencia1/alerta")
 
 address = 'arquisoftprueba@gmail.com'
-sender = 'tv.huertas10@uniandes.edu.co'
-smtp.login(sender, 'vanessa98')
+sender = 'arquisoftprueba@gmail.com'
 
 
 def on_message(user, data, message):
+    tiempoinicial = time.time()
     send_msg(message.payload.decode('utf-8'), message.topic)
     print('Calidad del mensaje: ', str(message.qos))
+    tiempofinal = time.time() - tiempoinicial
+    print('Tiempo de respuesta en segundos', int(tiempofinal))
+    print(' ')
 
 
 def send_msg(mensaje, asunto):
@@ -31,8 +34,10 @@ def send_msg(mensaje, asunto):
     mime_message["Subject"] = asunto
 
     try:
-        smtp = smtplib.SMTP('smtp.office365.com')
+        smtp = smtplib.SMTP('smtp.gmail.com:587')
+        smtp.ehlo()
         smtp.starttls()
+        smtp.login(sender, 'tatiana vanessa98')
         smtp.send_message(mime_message)
         print('Correo enviado')
         smtp.quit()
@@ -41,7 +46,6 @@ def send_msg(mensaje, asunto):
 
 
 user.on_message = on_message
-
 user.loop_start()
 time.sleep(1000)
 user.loop_stop()

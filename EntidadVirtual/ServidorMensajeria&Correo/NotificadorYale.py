@@ -14,6 +14,7 @@ ahora = datetime.now()
 contador = 0
 salida = True
 
+
 def on_subscribe(client, userdata,mid,granted_qos):
     print("subscribed: "+str(mid)+" "+str(granted_qos))
 
