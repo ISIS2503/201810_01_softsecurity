@@ -8,7 +8,7 @@ client = paho.Client()
 
 
 
-delta = timedelta(seconds=10)
+delta = timedelta(seconds=65)
 ahora = datetime.now()
 index = 0
 contador = 0

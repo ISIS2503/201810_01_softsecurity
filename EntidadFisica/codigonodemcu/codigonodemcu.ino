@@ -19,8 +19,8 @@ PubSubClient  clientMQTT(clientWIFI);
 
 // CONFIG WIFI
 //u:EventosUAndes c:EvUniandinos.18
-const char* ssid = "FAMILIA HIDALGO";
-const char* password = "51688GHJ";
+const char* ssid = "EventosUAndes";
+const char* password = "EvUniandinos.18";
 
 // CONFIG MQTT
 const char* mqtt_server = "broker.mqtt-dashboard.com";

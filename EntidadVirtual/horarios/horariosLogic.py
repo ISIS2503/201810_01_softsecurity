@@ -47,7 +47,7 @@ class Candado(object):
             client.publish(topic, "4;"+ str(self.index), qos=0)
             self.estado = True
         elif self.estado:
-            client.publish(topic, "3;" + str(self.index), qos=0)
+            client.publish(topic, "2;" + str(self.index), qos=0)
             self.estado = False
 
 
@@ -55,10 +55,10 @@ candados = []
 
 
 def agregar_candado(hora_inicio, hora_fin, index):
-    cand = Candado(hora_inicio, hora_fin, index, True)
+    cand = Candado(hora_inicio, hora_fin, index, False)
     candados.insert(index, cand)
     print("candado agregado")
-c = agregar_candado(11,15,3)
+c = agregar_candado(50,53,5)
 c2 = agregar_candado(13,17,2)
 
 
@@ -74,7 +74,6 @@ def borrar_todos():
 def actualizador():
     print("aacr")
     while True:
-        time.sleep(60)
         for c in candados:
             time.sleep(10)
             c.actualizar_estado()
