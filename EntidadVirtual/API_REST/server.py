@@ -2,6 +2,7 @@
 import http.client
 from flask import Flask
 from flask import Flask,redirect
+import paho.mqtt.client as paho
 from flask import jsonify
 from flask import request
 from flask import render_template
@@ -12,15 +13,19 @@ from functools import wraps
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
-from dotenv import load_dotenv, find_dotenv
+
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
 from functools import wraps
 
-
 app = Flask(__name__, static_url_path='/public', static_folder='./public', template_folder='templates')
 app.secret_key = 'estaesunaclavesecreta'
+
+##cosas del mqtt
+topico = "conjunto1/residencia1/cerradura"
+client = paho.Client()
+client.connect("broker.mqtt-dashboard.com", 1883)
 
 app.config['MONGO_DBNAME'] = 'restdb'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/restdb'
@@ -39,6 +44,56 @@ auth0 = oauth.register(
         'scope': 'openid profile',
     },
 )
+
+##Cerradura TEST
+
+#Insertar una cerradura
+@app.route("/cerradura", methods=["POST"])
+def insert_cerradura():
+    password = request.json['password']
+    posicion = request.json['posicion']
+    hora_inicio = request.json['hora_inicio']
+    hora_fin = request.json['hora_fin']
+
+    nuevo_candado = "0;"+password+";"+posicion;
+
+    #hl.agregar_candado(hora_inicio, hora_fin, posicion)
+    client.publish("horariocandado", hora_inicio+";"+hora_fin+";"+posicion)
+    client.publish(topico, nuevo_candado)
+    return jsonify(nuevo_candado)
+
+
+@app.route("/cerradura", methods=["PUT"])
+def update_cerradura():
+    password = request.json['password']
+    posicion = request.json['posicion']
+    nuevo_candado = "1;"+password+";"+posicion;
+    client.publish(topico, nuevo_candado)
+    return jsonify(nuevo_candado)
+
+
+@app.route("/cerradura", methods=["DELETE"])
+def delete_clave_cerradura():
+    posicion = request.json['posicion']
+    nuevo_candado = "2;" + posicion
+    client.publish(topico, nuevo_candado)
+    return jsonify(nuevo_candado)
+
+
+
+@app.route("/cerradura_all", methods=["DELETE"])
+def delete_all_cerraduras():
+    mensaje = "3"
+    client.publish(topico,mensaje)
+    return jsonify(mensaje)
+
+
+@app.route("/cerraduraHorario", methods = ["PUT"])
+def change_state_cerradura():
+    posicion = request.json['posicion']
+    mensaje = "4;"+posicion
+##FIN CERRADURA TEST
+
 
 # Controllers API
 @app.route('/')
