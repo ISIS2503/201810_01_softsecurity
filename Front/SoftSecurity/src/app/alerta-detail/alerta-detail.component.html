@@ -1,0 +1,14 @@
+<div *ngIf="alerta">
+	<h2>{{ alerta.tipoAlerta }}</h2>
+
+	<div><span>Cantidad Alertas: </span>{{ alerta.cantidadAlertas }}</div>
+
+	<div>
+    	<label>Tipo Alerta: 
+      	<input [(ngModel)]="alerta.tipoAlerta" placeholder="Tipo Alerta">
+    	</label>
+	</div>
+	
+	<button (click)="goBack()">Retroceder</button>
+	
+</div>

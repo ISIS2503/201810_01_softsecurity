@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+	margin:0px;
+	padding:0px;
+	font-family: verdana;
+	color:#919293;	
+}
+
+div#menu {
+	position:absolute;
+	width:85px;
+	height:100%;
+	background-color:#2f3030;
+	overflow:hidden;
+	-webkit-transition: width 0.5s;
+}
+
+div#menu:hover {
+	width:170px;
+}
+
+div#logo-principal {
+	width:65px;
+	height:65px;
+	margin:10px;
+	background-image: url(app/imagenes/menu.png);
+}
+
+div.logo-alerta {
+	width:65px;
+	height:65px;
+	margin:10px;
+	background-image: url(app/imagenes/alerta.png);
+	float:left;
+}
+
+div.logo-mapa {
+	width:65px;
+	height:65px;
+	margin:10px;
+	background-image: url(app/imagenes/mapa.png);
+	float:left;
+}
+body {
+	
+	background-image: url(app/imagenes/seguridad.jpg); 
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #08697a;
+			
+}
+
+div.funciones {
+	width:150px;
+	height:65px;
+}
+
+div#funciones-izq {
+		
+}
+
+p.texto {
+	margin-left:80px;
+	line-height:75px;	
+}
+
+p.textoSoft {
+	margin-left:100px;
+	line-height:75px;
+	font-size:180%;	
+}
+
+div#sesion {
+	position:absolute;
+	width:100%;
+	height:75px;
+	background-color:#2f3030;
+}
+
+div.perfil {
+	margin-left:1000px;
+	line-height:75px;
+}

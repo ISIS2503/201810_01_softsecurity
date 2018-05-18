@@ -1,0 +1,23 @@
+<h2>{{ residencia.nombre }}</h2>
+
+<div><span>Numero: </span>{{ residencia.numero }}</div>
+
+<div>
+    <label>Nombre:
+      <input [(ngModel)]="residencia.nombre" placeholder="Nombre">
+    </label>
+</div>
+
+<h2>Alertas</h2>
+<ul class = "alertas">
+	<li *ngFor="let alerta of alertas">
+		<a routerLink="/detail/{{alerta.cantidadAlertas}}">
+	
+			<span class="badge">Cantidad Alertas: {{alerta.cantidadAlertas}}</span> Tipo Alerta: {{alerta.tipoAlerta}}
+			<app-alerta-detail [alerta]="alerta"></app-alerta-detail>
+			
+		</a>
+	</li>	
+</ul>
+
+
