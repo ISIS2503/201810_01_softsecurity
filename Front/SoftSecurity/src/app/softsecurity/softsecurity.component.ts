@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Residencia } from '../residencia';
-import { Alerta } from '../alerta';
+import { Alerta } from '../alerta/alerta';
 import { AlertaService } from '../alerta.service';
 
 @Component({
@@ -9,11 +8,6 @@ import { AlertaService } from '../alerta.service';
   styleUrls: ['./softsecurity.component.css']
 })
 export class SoftsecurityComponent implements OnInit {
-
-  residencia: Residencia = {
-    nombre: 'Residencia 1',
-    numero: 1
-  };
 
   alertas: Alerta[];
 

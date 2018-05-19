@@ -124,7 +124,7 @@ def callback_handling():
 
 @app.route('/login')
 def login():
-    return auth0.authorize_redirect(redirect_uri='http://127.0.0.1:5000/callback', audience='https://isis2503-softsecurity.auth0.com/userinfo')
+    return auth0.authorize_redirect(redirect_uri='http://127.0.0.1:4200', audience='https://isis2503-softsecurity.auth0.com/userinfo')
 
 @app.route('/logout')
 def logout():

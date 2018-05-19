@@ -1,0 +1,14 @@
+div#alerta {
+    position: absolute;
+	right:662px;
+	left:160px;
+    height:180px;
+    width:490px;
+    background-color:white;
+    z-index:0;
+}
+
+p.textoAlerta {
+    color: #8f0000;
+    font-size: 200%;
+}

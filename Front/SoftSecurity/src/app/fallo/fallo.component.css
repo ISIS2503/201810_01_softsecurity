@@ -1,0 +1,22 @@
+div#fallo {
+    position: absolute;
+	right:662px;
+	left:160px;
+    height:180px;
+    width:490px;
+    background-color:white;
+}
+
+div#texto {
+    color:black;
+    z-index:1;
+}
+
+p.textoFallo {
+    color: #ebd800;
+    font-size: 200%;
+}
+
+div#listaFallo {
+    color:black;
+}

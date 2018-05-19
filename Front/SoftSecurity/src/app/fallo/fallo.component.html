@@ -1,3 +1,25 @@
-<p>
-  fallo works!
-</p>
+<div id="fallo" ng-app="myApp" ng-controller="falloCtrl">
+        <div>
+          <p class="textoFallo" style="font-weight: bold;">Fallos!</p>
+        </div>
+      
+        <div id="listaFallo">
+          <ul>
+            <div id="texto">
+            <li ng-repeat="fallo in myData">
+              {{fallo.tipoFallo + ', ' + fallo.fecha + ', ' + fallo.hora}}
+            </li>
+            </div>
+          </ul>
+        </div>
+      
+      </div>
+      
+      <script>
+        var app = angular.module('myApp',[]);
+        app.controller('falloCtrl', function($scope, $http){
+          $http.get("").then(function(response){
+            $scope.myData = response.data.records;
+          });
+        });
+      </script>

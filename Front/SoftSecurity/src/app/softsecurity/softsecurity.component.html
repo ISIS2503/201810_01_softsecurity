@@ -1,23 +1,38 @@
-<h2>{{ residencia.nombre }}</h2>
 
-<div><span>Numero: </span>{{ residencia.numero }}</div>
+	<div id="softsecurity">
+		<div id="residencia">
+			<p class="textRes" style="font-weight: bold;">Residencia 23</p>
+		</div>	
+		<div id="alertaApp">
+			<app-alerta></app-alerta>
+		</div>
+		<div id="falloApp">
+			<app-fallo></app-fallo>
+		</div>	
+		<div id="datos" >
+			<p class="etiqueta" style="font-weight: bold;">Propietario: Andrés Felipe Pinzón</p>
+			<p class="etiqueta" style="font-weight: bold;">Teléfono: 4343543</p>
+			<p class="etiqueta" style="font-weight: bold;">E-mail: af.pinzon@gmail.com</p>
+			<p class="etiqueta" style="font-weight: bold;">Dirección: Cll siempreviva 123</p>
+		</div>
+	</div>
 
-<div>
-    <label>Nombre:
-      <input [(ngModel)]="residencia.nombre" placeholder="Nombre">
-    </label>
-</div>
-
-<h2>Alertas</h2>
-<ul class = "alertas">
-	<li *ngFor="let alerta of alertas">
-		<a routerLink="/detail/{{alerta.cantidadAlertas}}">
-	
-			<span class="badge">Cantidad Alertas: {{alerta.cantidadAlertas}}</span> Tipo Alerta: {{alerta.tipoAlerta}}
-			<app-alerta-detail [alerta]="alerta"></app-alerta-detail>
-			
-		</a>
-	</li>	
-</ul>
-
-
+<div *ngIf="falloSelect">
+		<div id="softsecurity">
+			<div id="residencia">
+				<p class="textRes" style="font-weight: bold;">Fallos</p>
+			</div>	
+			<div id="alertaApp">
+				<app-alerta></app-alerta>
+			</div>
+			<div id="falloApp">
+				<app-fallo></app-fallo>
+			</div>	
+			<div id="datos" >
+				<p class="etiqueta" style="font-weight: bold;">Lokita</p>
+				<p class="etiqueta" style="font-weight: bold;">Teléfono: 4343543</p>
+				<p class="etiqueta" style="font-weight: bold;">E-mail: af.pinzon@gmail.com</p>
+				<p class="etiqueta" style="font-weight: bold;">Dirección: Cll siempreviva 123</p>
+			</div>
+		</div>
+	</div>

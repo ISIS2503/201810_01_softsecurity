@@ -12,6 +12,7 @@ div#menu {
 	height:100%;
 	background-color:#2f3030;
 	overflow:hidden;
+	z-index: 1;
 	-webkit-transition: width 0.5s;
 }
 
@@ -57,10 +58,6 @@ div.funciones {
 	height:65px;
 }
 
-div#funciones-izq {
-		
-}
-
 p.texto {
 	margin-left:80px;
 	line-height:75px;	
@@ -82,4 +79,12 @@ div#sesion {
 div.perfil {
 	margin-left:1000px;
 	line-height:75px;
+}
+
+div#listaAlerta {
+	position:absolute;
+    left:300px;
+    top:200px;
+    color:black;
+    z-index:1;
 }

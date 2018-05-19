@@ -8,14 +8,22 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" type="image/png" href="icono.png">
   <link rel="stylesheet" type="text/css" href="styles.css" />
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 <body>
-
-		<div id="sesion">
-			<p class="textoSoft" style="font-weight: bold;">SoftSecurity</p>		
-		</div>
-		<div class="perfil">
-		</div>
+	<div id="listaAlerta" ng-app="softSecurity" ng-controller="alarmaCtrl">
+		<ul>
+		  <li ng-repeat="x in myData">
+			{{ x.tipo +', '+ x.fecha  }}
+		  </li>
+		</ul>        
+	</div> 
+	<div id="sesion">
+		<p class="textoSoft" style="font-weight: bold;">SoftSecurity</p>		
+	</div>
+	<div class="perfil">
+	</div>
 	
 	<div id="menu">		
 				
@@ -26,16 +34,24 @@
 		<div id="funciones-izq" class="funciones">
 			<div class="logo-alerta">			
 			</div>
-			<p class="texto">Alertas</p>
+			<p class="texto"><a href="/alertas">Alertas</a></p>
 			<br>
 			<div class="logo-mapa">			
 			</div>
-			<p class="texto">Mapa</p>
+			<p class="texto"><a href="/mapa">Mapa</a></p>
 		</div>
-		
+	
 	</div>
 	
 	<app-root></app-root>
-  	
+	
+	<script>
+		var app = angular.module('softSecurity', []);
+		app.controller('alarmaCtrl', function($scope, $http) {
+		  $http.get("http://localhost:5000/alarma").then(function (response) {
+			  $scope.myData = response.data.result;
+		  });
+		});
+	</script>
 </body>
 </html>

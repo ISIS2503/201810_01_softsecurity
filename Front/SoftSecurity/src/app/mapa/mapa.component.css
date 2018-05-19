@@ -1,5 +1,7 @@
-p.mapa {
-	margin-left:100px;
-	line-height:75px;
-	font-size:180%;
+div#mapa {
+	position: absolute;
+	right:0px;
+	left:662px;
+	height:625px;
+	float:right;
 }

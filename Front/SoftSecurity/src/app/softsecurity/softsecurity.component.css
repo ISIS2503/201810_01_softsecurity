@@ -1,0 +1,46 @@
+div#softsecurity {
+    position: relative;
+	right:662px;
+	left:0px;
+	height:625px;
+    float:left;
+}
+
+div#datos {
+	top:480px;
+	position: absolute;
+	right:662px;
+	left:160px;
+	height:150px;
+	width:500px;
+	z-index:1;
+}
+
+div#residencia {
+	position:absolute;
+	right:662px;
+	left:160px;
+	width:490px;
+	height:70px;
+	background-color:#464846;
+}
+
+p.textRes {
+	font-size: 250%;
+	line-height:70px;
+	color:#dbdcdd;
+}
+
+div#alertaApp {
+	top:80px;
+	position: absolute;
+}
+
+div#falloApp {
+	top:270px;
+	position: absolute;
+}
+
+p.etiqueta {
+	color:white;
+}
