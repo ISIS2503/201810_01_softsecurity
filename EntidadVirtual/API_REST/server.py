@@ -13,7 +13,7 @@ from functools import wraps
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
-# import horarios.horariosLogic as hl
+#import horarios.horariosLogic as hl
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
@@ -56,8 +56,9 @@ def insert_cerradura():
     hora_inicio = request.json['hora_inicio']
     hora_fin = request.json['hora_fin']
 
-    nuevo_candado = "0;"+password+";"+posicion;
-
+    nuevo_candado = "0;"+password+";"+posicion
+    user.on_message = on_message
+    user.loop_start()
     #hl.agregar_candado(hora_inicio, hora_fin, posicion)
     # hl.agregar_candado(hora_inicio, hora_fin, posicion)
     client.publish(topico, nuevo_candado)
