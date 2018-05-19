@@ -13,7 +13,7 @@ from functools import wraps
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
-
+import horarios.horariosLogic as hl
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
@@ -28,7 +28,7 @@ client = paho.Client()
 client.connect("broker.mqtt-dashboard.com", 1883)
 
 app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/restdb'
+app.config['MONGO_URI'] = 'mongodb://localhdost:27017/restdb'
 
 mongo = PyMongo(app)
 oauth = OAuth(app)
@@ -45,7 +45,7 @@ auth0 = oauth.register(
     },
 )
 
-##Cerradura TEST
+##Cerradura
 
 #Insertar una cerradura
 @app.route("/cerradura", methods=["POST"])
@@ -58,7 +58,7 @@ def insert_cerradura():
     nuevo_candado = "0;"+password+";"+posicion;
 
     #hl.agregar_candado(hora_inicio, hora_fin, posicion)
-    client.publish("horariocandado", hora_inicio+";"+hora_fin+";"+posicion)
+    hl.agregar_candado(hora_inicio, hora_fin, posicion)
     client.publish(topico, nuevo_candado)
     return jsonify(nuevo_candado)
 
@@ -105,7 +105,6 @@ def home():
 def callback_handling():
     # Handles response from token endpoint
     resp = auth0.authorize_access_token()
-
     url = 'https://isis2503-softsecurity.auth0.com/userinfo'
     headers = {'authorization': 'Bearer ' + resp['access_token']}
     resp = requests.get(url, headers=headers)

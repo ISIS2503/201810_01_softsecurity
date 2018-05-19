@@ -2,6 +2,7 @@ import datetime
 import paho.mqtt.client as paho
 import threading
 import time
+from multiprocessing import Pipe
 
 posicion = 0
 hora_inicio = 0
@@ -10,10 +11,7 @@ hora_fin = 0
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
 
-def on_subscribe(client, userdata, mid, granted_qos):
-    print("Subscribed: " + str(mid) + " " + str(granted_qos))
 client = paho.Client()
-client.on_subscribe = on_subscribe
 client.on_publish = on_publish
 topic = "conjunto1/residencia1/cerradura"
 client.connect("broker.mqtt-dashboard.com", 1883)
@@ -51,18 +49,18 @@ class Candado(object):
             self.estado = False
 
 
-candados = []
-
-
-def agregar_candado(hora_inicio, hora_fin, index):
+candados = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]
+def agregar_candado(hora_inicio, hora_fin, pindex):
+    global candados
+    index=int(pindex)
     cand = Candado(hora_inicio, hora_fin, index, False)
-    candados.insert(index, cand)
+    candados[index]=cand
     print("candado agregado")
-c = agregar_candado(50,53,5)
-c2 = agregar_candado(13,17,2)
+    print(len(candados))
 
 
 def borrar_candado(index):
+    global candados
     candados.pop(index)
 
 
@@ -72,28 +70,16 @@ def borrar_todos():
 
 
 def actualizador():
-    print("aacr")
+    global candados
     while True:
+        global candados
+        print("aacr")
+        time.sleep(10)
+        print(len(candados))
         for c in candados:
-            time.sleep(10)
-            c.actualizar_estado()
+            if not c == "0":
+                # c.actualizar_estado()
+                print(c.dar_index)
+                print("se actualizo")
 
-def on_message(client, userdata, msg):
-    global hora_inicio,hora_fin,posicion
-    x=str(msg.payload)
-    x=x[2:-1]
-    print(x)
-    hora_inicio, hora_fin, posicion = x.split(";")
-    agregar_candado(int(hora_inicio),int(hora_fin),int(posicion))
-client.on_message = on_message
-a = threading.Thread(target=actualizador())
-a.start()
-
-client.subscribe("horariocandado")
-client.loop_forever()
-
-
-
-
-print("end")
 

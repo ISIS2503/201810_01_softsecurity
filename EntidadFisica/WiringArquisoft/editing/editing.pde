@@ -176,7 +176,7 @@ void loop()
   //BATERIA
   //Value conversion from digital to voltage
   batteryCharge = (analogRead(BATTERY_PIN)*3.3)/1024;
-  //Serial.println(batteryCharge);
+  Serial.println(analogRead(BATTERY_PIN)*100);
 
   //Measured value comparison with min voltage required
   if(batteryCharge<=MIN_VOLTAGE) {
