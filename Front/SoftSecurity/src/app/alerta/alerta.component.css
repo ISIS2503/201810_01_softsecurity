@@ -3,7 +3,7 @@ div#alerta {
 	right:662px;
 	left:160px;
     height:180px;
-    width:490px;
+    width:490px;    
     background-color:white;
     z-index:0;
 }
@@ -11,4 +11,13 @@ div#alerta {
 p.textoAlerta {
     color: #8f0000;
     font-size: 200%;
+}
+
+div#redPointer {
+    width:45px;
+    height:45px;
+    left:30px;
+	margin:10px;
+    background-image: url(/imagenes/redPointer.png);
+    z-index:1;
 }

@@ -76,15 +76,30 @@ div#sesion {
 	background-color:#2f3030;
 }
 
-div.perfil {
-	margin-left:1000px;
-	line-height:75px;
+p.logout {
+	top:120%;
+	font-size:180%;
+	color:blue;
 }
 
 div#listaAlerta {
 	position:absolute;
     left:300px;
-    top:200px;
+	top:200px;
+	height:140px;
+	width:350px;
     color:black;
-    z-index:1;
+	z-index:1;
+	overflow:scroll;
+}
+
+div#listaFallo {
+	position:absolute;
+    left:300px;
+	top:400px;
+	height:125px;
+	width:350px;
+    color:black;
+	z-index:1;
+	overflow:scroll;
 }

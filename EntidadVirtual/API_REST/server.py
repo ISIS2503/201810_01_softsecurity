@@ -13,11 +13,12 @@ from functools import wraps
 import json
 from os import environ as env
 from werkzeug.exceptions import HTTPException
-import horarios.horariosLogic as hl
+# import horarios.horariosLogic as hl
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
 import requests
 from functools import wraps
+from dotenv import load_dotenv, find_dotenv
 
 app = Flask(__name__, static_url_path='/public', static_folder='./public', template_folder='templates')
 app.secret_key = 'estaesunaclavesecreta'
@@ -28,7 +29,7 @@ client = paho.Client()
 client.connect("broker.mqtt-dashboard.com", 1883)
 
 app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://localhdost:27017/restdb'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/restdb'
 
 mongo = PyMongo(app)
 oauth = OAuth(app)
@@ -58,7 +59,7 @@ def insert_cerradura():
     nuevo_candado = "0;"+password+";"+posicion;
 
     #hl.agregar_candado(hora_inicio, hora_fin, posicion)
-    hl.agregar_candado(hora_inicio, hora_fin, posicion)
+    # hl.agregar_candado(hora_inicio, hora_fin, posicion)
     client.publish(topico, nuevo_candado)
     return jsonify(nuevo_candado)
 
@@ -519,7 +520,6 @@ def add_hub(id_propietario):
     else:
         output = "No such propietario"
     return jsonify({'result': output})
-
 
 
 if __name__ == '__main__':
