@@ -55,8 +55,9 @@ def insert_cerradura():
     hora_inicio = request.json['hora_inicio']
     hora_fin = request.json['hora_fin']
 
-    nuevo_candado = "0;"+password+";"+posicion;
-
+    nuevo_candado = "0;"+password+";"+posicion
+    user.on_message = on_message
+    user.loop_start()
     #hl.agregar_candado(hora_inicio, hora_fin, posicion)
     hl.agregar_candado(hora_inicio, hora_fin, posicion)
     client.publish(topico, nuevo_candado)
